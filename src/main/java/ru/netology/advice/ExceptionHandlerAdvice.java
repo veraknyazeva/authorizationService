@@ -11,13 +11,14 @@ import ru.netology.exeption.UnauthorizedUser;
 public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(InvalidCredentials.class)
-    public ResponseEntity<String> authorizeInvalidHandler(RuntimeException ex) {
-        return new ResponseEntity<>("RuntimeException in throw exeption method", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<InvalidCredentials> authorizeInvalidHandler(InvalidCredentials ex) {
+        InvalidCredentials invalidCredentials = new InvalidCredentials(ex.getMessage());
+        return new ResponseEntity<>(invalidCredentials, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(UnauthorizedUser.class)
-    public ResponseEntity<String> authorizeUnauthorizedHandler(RuntimeException ex) {
-        return new ResponseEntity<>("RuntimeException in throw exeption method", HttpStatus.UNAUTHORIZED);
+    public ResponseEntity<UnauthorizedUser> authorizeUnauthorizedHandler(UnauthorizedUser ex) {
+        UnauthorizedUser unauthorizedUser = new UnauthorizedUser(ex.getMessage());
+        return new ResponseEntity<>(unauthorizedUser, HttpStatus.UNAUTHORIZED);
     }
-
 }
